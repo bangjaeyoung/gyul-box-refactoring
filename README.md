@@ -1,4 +1,4 @@
-<h1>🍊 Gyul_Box</h1>
+<h1>🍊 Gyul-Box</h1>
 
 <br />
 
@@ -17,7 +17,7 @@
 
 ### 💡 프로젝트 개요
 
-- **팀 명 :** 귤박스(미완성)
+- **프로젝트 명 :** 귤박스(Gyul-Box)
 - **프로젝트 기간 :** 2023.04 - 2023.06 (리팩토링 진행중)
 
 
@@ -43,6 +43,7 @@
   <img src="https://img.shields.io/badge/Recoil-61DAFB?style=for-the-badge">
 </div>
 
+<br />
 
 **BackEnd**
 <div>
@@ -63,19 +64,23 @@
   <img src="https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=MySQL&logoColor=white">
  </div>
  
+<br />
+
 **Cloud**
 <div>
   <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white">
   <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
 </div>
 
+<br />
+
 **Tool**
 <div>
-  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
   <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
   <img src="https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=GitHub&logoColor=white">
-  <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white">
   <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
+  <img src="https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white">
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white">
   <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 </div>
 
