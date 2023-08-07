@@ -9,6 +9,7 @@ import jeju.oneroom.post.mapper.PostMapper;
 import jeju.oneroom.post.repository.PostRepository;
 import jeju.oneroom.user.entity.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -51,7 +53,7 @@ public class PostService {
     @Transactional
     public PostDto.Response findPostByPostId(long postId) {
         Post verifiedPost = findVerifiedPost(postId);
-        postRepository.updateViewCount(postId);  // 단일 게시글 조회 시, 조회 수 1씩 증가
+        verifiedPost.updateViews(); // 단일 게시글 조회 시, 조회 수 1씩 증가
 
         return postMapper.postToResponseDto(verifiedPost);
     }
@@ -59,25 +61,25 @@ public class PostService {
     // 유저의 모든 게시글 최신순으로 조회
     public Page<PostDto.SimpleResponseDto> findPostsByUserId(User user, int page, int size) {
         return postRepository.findAllByUserOrderByCreatedAtDesc(user, PageRequest.of(page - 1, size))
-                .map(postMapper::postToSimpleResponseDto);
+            .map(postMapper::postToSimpleResponseDto);
     }
 
     // 제목을 통한 다중 게시글 최신순으로 조회
     public Page<PostDto.SimpleResponseDto> findPostsByTitle(String title, int page, int size) {
         return postRepository.findPostsByTitleContains(title, PageRequest.of(page - 1, size))
-                .map(postMapper::postToSimpleResponseDto);
+            .map(postMapper::postToSimpleResponseDto);
     }
 
     // 모든 게시글 최신순으로 조회
     public Page<PostDto.SimpleResponseDto> findAllPost(int page, int size) {
         return postRepository.findAllPosts(PageRequest.of(page - 1, size))
-                .map(postMapper::postToSimpleResponseDto);
+            .map(postMapper::postToSimpleResponseDto);
     }
 
     // 다수의 건물에 속한 다중 게시글 조회
     public Page<PostDto.SimpleResponseDto> findPostsByHouseInfos(List<HouseInfo> houseInfos, int page, int size) {
         return postRepository.findPostsByHouseInfoIn(houseInfos, PageRequest.of(page - 1, size))
-                .map(postMapper::postToSimpleResponseDto);
+            .map(postMapper::postToSimpleResponseDto);
     }
 
     // 게시글 id로 단일 게시글 삭제
@@ -96,6 +98,6 @@ public class PostService {
     @Transactional
     public Post findVerifiedPost(long postId) {
         return postRepository.findPostById(postId)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_POST));
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_POST));
     }
 }

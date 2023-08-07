@@ -5,10 +5,8 @@ import jeju.oneroom.houseInfo.entity.HouseInfo;
 import jeju.oneroom.postcomment.entity.PostComment;
 import jeju.oneroom.postlike.entity.PostLike;
 import jeju.oneroom.user.entity.User;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.Formula;
 
 import javax.persistence.*;
@@ -17,6 +15,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@DynamicUpdate
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Post extends BaseEntity {
 
@@ -75,12 +74,12 @@ public class Post extends BaseEntity {
         this.content = content;
     }
 
-    public void updateViews(int views) {
-        this.views = views;
+    public void updateViews() {
+        this.views++;
     }
 
     // 동일 유저 검증
-    public boolean isAuthor(User user){
+    public boolean isAuthor(User user) {
         return this.user.equals(user);
     }
 }

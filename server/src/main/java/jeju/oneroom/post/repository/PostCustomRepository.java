@@ -21,7 +21,4 @@ public interface PostCustomRepository {
 
     // 모든 게시글 조회
     Page<Post> findAllPosts(Pageable pageable);
-
-    // 특정 게시글 id로 단일 게시글 조회 시, 조회수 증가
-    long updateViewCount(Long postId);
 }
