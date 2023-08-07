@@ -24,12 +24,12 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
     @Override
     public Optional<Post> findPostById(long postId) {
         Post post1 = jpaQueryFactory.selectFrom(post)
-                .leftJoin(post.user, user).fetchJoin()
-                .leftJoin(post.houseInfo, houseInfo).fetchJoin()
-                .leftJoin(post.postComments, postComment).fetchJoin()
-                .leftJoin(postComment.user, user).fetchJoin()
-                .where(post.id.eq(postId))
-                .fetchOne();
+            .leftJoin(post.user, user).fetchJoin()
+            .leftJoin(post.houseInfo, houseInfo).fetchJoin()
+            .leftJoin(post.postComments, postComment).fetchJoin()
+            .leftJoin(postComment.user, user).fetchJoin()
+            .where(post.id.eq(postId))
+            .fetchOne();
 
         return Optional.ofNullable(post1);
     }
@@ -39,21 +39,21 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         List<Post> posts = getPostsByHouseInfoIn(houseInfos, pageable);
 
         Long count = jpaQueryFactory.select(post.count())
-                .from(post)
-                .where(post.houseInfo.in(houseInfos))
-                .fetchOne();
+            .from(post)
+            .where(post.houseInfo.in(houseInfos))
+            .fetchOne();
 
         return new PageImpl<>(posts, pageable, count);
     }
 
     private List<Post> getPostsByHouseInfoIn(List<HouseInfo> houseInfos, Pageable pageable) {
         return jpaQueryFactory.selectFrom(post)
-                .leftJoin(post.user, user).fetchJoin()
-                .where(post.houseInfo.in(houseInfos))
-                .orderBy(post.modifiedAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+            .leftJoin(post.user, user).fetchJoin()
+            .where(post.houseInfo.in(houseInfos))
+            .orderBy(post.modifiedAt.desc())
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetch();
     }
 
     @Override
@@ -61,21 +61,21 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         List<Post> posts = getPostsByTitleContains(title, pageable);
 
         Long count = jpaQueryFactory.select(post.count())
-                .from(post)
-                .where(post.title.toUpperCase().contains(title.toUpperCase()))
-                .fetchOne();
+            .from(post)
+            .where(post.title.toUpperCase().contains(title.toUpperCase()))
+            .fetchOne();
 
         return new PageImpl<>(posts, pageable, count);
     }
 
     private List<Post> getPostsByTitleContains(String title, Pageable pageable) {
         return jpaQueryFactory.selectFrom(post)
-                .leftJoin(post.user, user).fetchJoin()
-                .where(post.title.toUpperCase().contains(title.toUpperCase()))
-                .orderBy(post.modifiedAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
+            .leftJoin(post.user, user).fetchJoin()
+            .where(post.title.toUpperCase().contains(title.toUpperCase()))
+            .orderBy(post.modifiedAt.desc())
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetch();
     }
 
     @Override
@@ -83,26 +83,18 @@ public class PostCustomRepositoryImpl implements PostCustomRepository {
         List<Post> posts = getAllPosts(pageable);
 
         Long count = jpaQueryFactory.select(post.count())
-                .from(post)
-                .fetchOne();
+            .from(post)
+            .fetchOne();
 
         return new PageImpl<>(posts, pageable, count);
     }
 
     private List<Post> getAllPosts(Pageable pageable) {
         return jpaQueryFactory.selectFrom(post)
-                .leftJoin(post.user, user).fetchJoin()
-                .orderBy(post.modifiedAt.desc())
-                .offset(pageable.getOffset())
-                .limit(pageable.getPageSize())
-                .fetch();
-    }
-
-    @Override
-    public long updateViewCount(Long postId) {
-        return jpaQueryFactory.update(post)
-                .set(post.views, post.views.add(1))
-                .where(post.id.eq(postId))
-                .execute();
+            .leftJoin(post.user, user).fetchJoin()
+            .orderBy(post.modifiedAt.desc())
+            .offset(pageable.getOffset())
+            .limit(pageable.getPageSize())
+            .fetch();
     }
 }
