@@ -20,8 +20,14 @@
 
 - **프로젝트 명 :** 귤박스(Gyul-Box)
 - **프로젝트 기간 :** 2023.04 - 2023.06 (리팩토링 진행중)
+- **팀원 소개**
 
+|<img src="https://avatars.githubusercontent.com/u/111031253?v=4" width="150px" />|<img src="https://avatars.githubusercontent.com/u/90381760?v=4" width="150px" />|<img src="https://avatars.githubusercontent.com/u/80241053?v=4" width="150px"/>|
+|:-:|:-:|:-:|
+|[황낙준](https://github.com/nakjun12)|[한규현](https://github.com/Gyuddi)|[방재영](https://github.com/bangjaeyoung)|
+|FE|BE|BE|
 
+<br>
 
 ### 📎 문서
 - [Notion](https://www.notion.so/First-Project-23ccbfa58cad4fa59828e0243529313f)
