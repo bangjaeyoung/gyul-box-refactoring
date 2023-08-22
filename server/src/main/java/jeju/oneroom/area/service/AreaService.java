@@ -17,14 +17,20 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AreaService {
+
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
 
     public List<AreaDto.Response> findAreasByAreaName(String areaName) {
-        return areaRepository.findByAreaName(areaName).stream().map(areaMapper::areaToResponseDto).collect(Collectors.toList());
+        List<Area> areas = areaRepository.findByAreaName(areaName);
+
+        return areas.stream()
+            .map(areaMapper::areaToResponseDto)
+            .collect(Collectors.toList());
     }
 
     public Area findVerifiedAreaByAreaCode(long areaCode) {
-        return areaRepository.findById(areaCode).orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_AREA));
+        return areaRepository.findById(areaCode)
+            .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_AREA));
     }
 }
