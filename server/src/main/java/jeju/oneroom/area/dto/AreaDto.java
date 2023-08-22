@@ -1,14 +1,10 @@
 package jeju.oneroom.area.dto;
 
 import jeju.oneroom.common.entity.Coordinate;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Getter
-@NoArgsConstructor
 public class AreaDto {
+
     @Getter
     @Builder
     @NoArgsConstructor
