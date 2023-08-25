@@ -50,8 +50,11 @@
 <div markdown="1">
 
 ### 4.1. 전체 흐름
+<img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/72a29c5c-dba1-46e0-8411-5c9544181cb6">
 
 ### 4.2. Controller
+- 제주도 지역의 동이름으로 해당 동의 주거공간들을 조회합니다.
+
 ### 4.3. Service
 ### 4.4. Repository
 
