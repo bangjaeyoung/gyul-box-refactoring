@@ -32,10 +32,13 @@
 </br>
 
 ## 3. ERD 설계
-<img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/71ec04c6-2c24-414f-99a1-a4dacb6de443" width=700 height=500>
+<img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/71ec04c6-2c24-414f-99a1-a4dacb6de443" width=600 height=600>
 
 </br>
 </br>
+
+이미지를 클릭하시면 확대해 볼 수 있습니다.
+
 </br>
 
 ## 4. 핵심 기능
@@ -46,11 +49,11 @@
   <summary><b>핵심 기능 설명 펼치기</b></summary>
 <div markdown="1">
 
-### 전체적인 흐름
+### 4.1. 전체 흐름
 
-### Controller
-### Service
-### Repository
+### 4.2. Controller
+### 4.3. Service
+### 4.4. Repository
 
 </div>
 </details>
