@@ -31,3 +31,36 @@
 
 </br>
 
+## 3. ERD 설계
+<img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/71ec04c6-2c24-414f-99a1-a4dacb6de443" width=700 height=500>
+
+</br>
+</br>
+</br>
+
+## 4. 핵심 기능
+이 서비스의 핵심 기능은 주거공간 조회 기능입니다.   
+다음 기능의 흐름을 보면, 서비스가 어떻게 동작하는지 파악할 수 있습니다.
+
+<details>
+  <summary><b>핵심 기능 설명 펼치기</b></summary>
+<div markdown="1">
+
+### 전체적인 흐름
+
+### Controller
+### Service
+### Repository
+
+</div>
+</details>
+
+</br>
+
+## 5. 핵심 트러블 슈팅
+### 5.1. 첫 번째 문제
+- 문제문제
+
+</br>
+
+## 6. 그 외 트러블 슈팅
