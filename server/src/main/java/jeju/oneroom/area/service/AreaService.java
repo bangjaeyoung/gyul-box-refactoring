@@ -10,9 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -21,12 +18,10 @@ public class AreaService {
     private final AreaRepository areaRepository;
     private final AreaMapper areaMapper;
 
-    public List<AreaDto.Response> findAreasByAreaName(String areaName) {
-        List<Area> areas = areaRepository.findByAreaName(areaName);
+    public AreaDto.Response findAreaByAreaName(String areaName) {
+        Area area = areaRepository.findByAreaName(areaName);
 
-        return areas.stream()
-            .map(areaMapper::areaToResponseDto)
-            .collect(Collectors.toList());
+        return areaMapper.areaToResponseDto(area);
     }
 
     public Area findVerifiedAreaByAreaCode(long areaCode) {
