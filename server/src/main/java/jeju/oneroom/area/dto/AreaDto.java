@@ -1,7 +1,10 @@
 package jeju.oneroom.area.dto;
 
 import jeju.oneroom.common.entity.Coordinate;
+import jeju.oneroom.houseInfo.dto.HouseInfoDto;
 import lombok.*;
+
+import java.util.List;
 
 public class AreaDto {
 
@@ -13,5 +16,6 @@ public class AreaDto {
         private Long areaCode;
         private String areaName;
         private Coordinate coordinate;
+        private List<HouseInfoDto.SimpleResponse> houseInfos;
     }
 }

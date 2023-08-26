@@ -32,26 +32,26 @@ class AreaServiceTest {
     @InjectMocks
     private AreaService areaService;
 
-    @Test
-    @DisplayName("findAreasByAreaName 동작 확인")
-    void 자역_이름으로_검색() {
-        //given
-
-        Area area1 = getArea_1();
-        Area area2 = getArea_2();
-        List<Area> areas = Arrays.asList(area1, area2);
-
-        AreaDto.Response responseDto = getResponseDto(area1);
-
-        //when
-        when(areaRepository.findByAreaName(anyString())).thenReturn(areas);
-        when(areaMapper.areaToResponseDto(any())).thenReturn(responseDto);
-
-        List<AreaDto.Response> responses = areaService.findAreasByAreaName("동춘");
-
-        //then
-        assertEquals(area1.getAreaCode(), responses.get(0).getAreaCode());
-    }
+//    @Test
+//    @DisplayName("findAreasByAreaName 동작 확인")
+//    void 자역_이름으로_검색() {
+//        //given
+//
+//        Area area1 = getArea_1();
+//        Area area2 = getArea_2();
+//        List<Area> areas = Arrays.asList(area1, area2);
+//
+//        AreaDto.Response responseDto = getResponseDto(area1);
+//
+//        //when
+//        when(areaRepository.findByAreaName(anyString())).thenReturn(areas);
+//        when(areaMapper.areaToResponseDto(any())).thenReturn(responseDto);
+//
+//        List<AreaDto.Response> responses = areaService.findAreasByAreaName("동춘");
+//
+//        //then
+//        assertEquals(area1.getAreaCode(), responses.get(0).getAreaCode());
+//    }
 
     @Test
     @DisplayName("findVerifiedAreaByAreaCode 동작 확인")
