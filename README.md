@@ -47,7 +47,7 @@
 </br>
 
 ## 5. 맡았던 핵심 기능
-<b>게시판, 게시판 댓글, 게시판 좋아요 도메인 기능 구현</b>
+:pushpin: <b>게시판, 게시판 댓글, 게시판 좋아요 도메인 기능 구현</b>
  
 <details>
 <summary>상세 설명</summary>
@@ -57,7 +57,7 @@
 
 </br>
 
-<b>외부 Open API를 활용하여 필요한 데이터 처리</b>
+:pushpin: <b>외부 Open API를 활용하여 필요한 데이터 처리</b>
 
 <details>
 <summary>상세 설명</summary>
@@ -67,7 +67,7 @@
 
 </br>
 
-<b>코드 리팩토링 및 N+1 문제 해결</b>
+:pushpin: <b>코드 리팩토링 및 N+1 문제 해결</b>
 
 <details>
 <summary>상세 설명</summary>
@@ -77,7 +77,7 @@
 
 </br>
 
-<b>WebSocket을 활용한 실시간 채팅 기능 구현</b>
+:pushpin: <b>WebSocket을 활용한 실시간 채팅 기능 구현</b>
 
 <details>
 <summary>상세 설명</summary>
@@ -87,7 +87,7 @@
 
 </br>
 
-<b>RDS 마이그레이션 및 AWS EC2 배포 작업</b>
+:pushpin: <b>RDS 마이그레이션 및 AWS EC2 배포 작업</b>
 
 <details>
 <summary>상세 설명</summary>
