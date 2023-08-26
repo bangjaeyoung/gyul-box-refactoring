@@ -41,70 +41,57 @@
 
 </br>
 
-## 4. 핵심 기능
-이 서비스의 핵심 기능은 주거공간 조회 기능입니다.   
-다음 기능의 흐름을 보면, 서비스가 어떻게 동작하는지 파악할 수 있습니다.
-
-<details>
-  <summary><b>핵심 기능 설명 펼치기</b></summary>
-<div markdown="1">
-
-### 4.1. 전체 흐름
+## 4. 전체적인 흐름
 <img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/72a29c5c-dba1-46e0-8411-5c9544181cb6">
 
-### 4.2. Controller
-- 제주도 지역의 동 이름으로 해당 동의 주거공간들을 조회합니다.
-```Java
-    @GetMapping("/areas/search")
-    public ResponseEntity<AreaDto.Response> getArea(@RequestParam("name") @NotBlank String areaName) {
-        AreaDto.Response response = areaService.findAreaByAreaName(areaName);
+</br>
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
-    }
-```
+## 5. 맡았던 핵심 기능
+<b>게시판, 게시판 댓글, 게시판 좋아요 도메인 기능 구현</b>
+ 
+<details>
+<summary>상세 설명</summary>
+<div markdown="1">
+</div>
+</details>
 
-:pushpin: [원본 코드 확인](https://github.com/bangjaeyoung/gyul-box/blob/a19f25dffbd728449c3f2e419047fa85938f3452/server/src/main/java/jeju/oneroom/area/controller/AreaController.java#L18C1-L23C6)
+</br>
 
-### 4.3. Service
-- Controller에서 넘어온 동 이름으로 로직을 처리합니다.
-```Java
-    public AreaDto.Response findAreaByAreaName(String areaName) {
-        Area area = areaRepository.findByAreaName(areaName);
+<b>외부 Open API를 활용하여 필요한 데이터 처리</b>
 
-        return areaMapper.areaToResponseDto(area);
-    }
-```
+<details>
+<summary>상세 설명</summary>
+<div markdown="1">
+</div>
+</details>
 
-:pushpin: [원본 코드 확인](https://github.com/bangjaeyoung/gyul-box/blob/a19f25dffbd728449c3f2e419047fa85938f3452/server/src/main/java/jeju/oneroom/area/service/AreaService.java#L21C4-L25C6)
+</br>
 
-### 4.4. Repository
-- DB에 해당 동 이름에 맞는 Area(지역) 정보를 요청하고 받아옵니다.
-```Java
-    public interface AreaRepository extends JpaRepository<Area, Long> {
-      Area findByAreaName(String areaName);
-    }
-```
+<b>코드 리팩토링 및 N+1 문제 해결</b>
 
-:pushpin: [원본 코드 확인](https://github.com/bangjaeyoung/gyul-box/blob/a19f25dffbd728449c3f2e419047fa85938f3452/server/src/main/java/jeju/oneroom/area/repository/AreaRepository.java#L6C1-L8C2)
+<details>
+<summary>상세 설명</summary>
+<div markdown="1">
+</div>
+</details>
 
-- 받아온 데이터는 다시 Service - Controller를 거쳐 프론트엔드 서버로 전달됩니다.   
-- 전달되는 응답 DTO는 다음과 같습니다.
-```Java
-    @Getter
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class Response {
-        private Long areaCode;  // 지역 코드
-        private String areaName;  // 지역 이름(동 이름)
-        private Coordinate coordinate;  // 위도, 경도(지도 인터페이스를 사용하는 프론트단에서 필요)
-        private List<HouseInfoDto.SimpleResponse> houseInfos;  // 주거정보(건물 이름, 건물 주소, 평균 리뷰점수, 리뷰 갯수)
-    }
-```
+</br>
 
-:pushpin: [Area 응답 DTO 코드](https://github.com/bangjaeyoung/gyul-box/blob/a19f25dffbd728449c3f2e419047fa85938f3452/server/src/main/java/jeju/oneroom/area/dto/AreaDto.java#L11C1-L20C6)   
-:pushpin: [HouseInfo 응답 DTO 코드](https://github.com/bangjaeyoung/gyul-box/blob/a19f25dffbd728449c3f2e419047fa85938f3452/server/src/main/java/jeju/oneroom/houseInfo/dto/HouseInfoDto.java#L36C5-L47C6)
+<b>WebSocket을 활용한 실시간 채팅 기능 구현</b>
 
+<details>
+<summary>상세 설명</summary>
+<div markdown="1">
+</div>
+</details>
+
+</br>
+
+<b>RDS 마이그레이션 및 AWS EC2 배포 작업</b>
+
+<details>
+<summary>상세 설명</summary>
+<div markdown="1">
 </div>
 </details>
 
