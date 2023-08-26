@@ -130,11 +130,33 @@
 
 </br>
 
-### 2. 외부 Open API를 활용하여 필요한 데이터 처리
+### 2. 외부 Open API를 활용하여 필요한 데이터 저장
+
+
 
 <details>
 <summary>상세 설명</summary>
 <div markdown="1">
+  
+#### 2-1. 사용 목적
+
+- 지역에 따른 주거공간 데이터 필요
+- 프론트단의 지도 인터페이스에 활용될 주거공간의 위도, 경도 데이터 필요
+
+#### 2-2. 호출 흐름
+
+1. 지역 코드(시군구, 법정동 코드)를 파라미터로 외부 Open API를 호출합니다.   
+2. 응답된 데이터는 서비스단으로 이동하여 가공됩니다.   
+    - 주거공간의 타입을 선별   
+    - 주거공간의 위도, 경도 데이터를 위해 또 다른 외부 Open API를 호출   
+    - HouseInfo 엔티티 필드에 맞는 데이터들을 뽑아내 DB에 저장   
+(외부 Open API의 호출은 모두 WebClient 라이브러리를 이용하였습니다)
+
+#### 2-3. 코드
+:pushpin: [OpenApiController.Java](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/controller/OpenApiController.java)   
+:pushpin: [OpenApiService.Java](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/OpenApiService.java)   
+:pushpin: [GeoPointService.Java](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/GeoPointService.java)   
+
 </div>
 </details>
 
