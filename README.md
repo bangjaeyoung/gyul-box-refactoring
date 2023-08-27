@@ -59,71 +59,22 @@
 
 <img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/0e7d6ac5-a7e2-4cf6-8911-8abd2bfb2a4a">
 
-#### 1-2. 각 도메인 Service Layer 코드
+</br>
+
+#### 1-2. 내용
+
+- 특정 게시물이 삭제될 경우, 해당 게시물의 댓글, 좋아요 데이터도 삭제되도록 구현하였습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/entity/Post.java#L49C5-L55C58)
+- 게시물과 댓글이 수정, 삭제할 경우 작성한 본인만 가능하도록 처리하였습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L38C5-L50C6)
+- 게시물 조회 시, 조회 수가 1씩 증가되도록 Post 엔티티 내에 필드값 변경 메서드를 만들었습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L52C5-L59C6)  
+- 게시글에 대한 좋아요를 2번 누를 경우, 취소되도록 기능을 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java#L20C5-L32C6)
+
+</br>
+
+#### 1-3. 각 도메인 Service Layer 코드
 
 - [게시판](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/post/service/PostService.java)   
 - [게시판 댓글](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/postcomment/service/PostCommentService.java)   
 - [게시판 좋아요](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java)
-
-#### 1-3. 내용
-
-- 특정 게시물이 삭제될 경우, 해당 게시물의 댓글, 좋아요 데이터도 삭제되도록 구현하였습니다.   
-```Java
-    @OneToMany(mappedBy = "post", orphanRemoval = true)
-    private List<PostComment> postComments = new ArrayList<>();
-
-    @OneToMany(mappedBy = "post", orphanRemoval = true)
-    private List<PostLike> postLikes = new ArrayList<>();
-```
-
-</br>
-
-- 게시물과 댓글이 수정, 삭제할 경우 작성한 본인만 가능하도록 처리하였습니다.   
-```Java
-    @Transactional
-    public Post updatePost(User user, PostDto.Patch patchDto) {
-        Post verifiedPost = findVerifiedPost(patchDto.getPostId());
-
-        if (verifiedPost.isAuthor(user)) {
-            verifiedPost.update(patchDto.getTitle(), patchDto.getContent());
-        } else {
-            throw new BusinessLogicException(ExceptionCode.NO_PERMISSION_TO_EDIT);
-        }
-
-        return verifiedPost;
-    }
-```
-
-</br>
-
-- 게시물 조회 시, 조회 수가 1씩 증가되도록 Post 엔티티 내에 필드값 변경 메서드를 만들었습니다.   
-  - 서비스단의 로직에서 처리하지 않은 이유는 JPA의 변경감지를 이용하고, 코드 재사용성을 높이기 위함입니다.   
-```Java
-    @Transactional
-    public PostDto.Response findPostByPostId(long postId) {
-        Post verifiedPost = findVerifiedPost(postId);
-        verifiedPost.updateViews(); // 단일 게시글 조회 시, 조회 수 1씩 증가
-
-        return postMapper.postToResponseDto(verifiedPost);
-    }
-```
-
-</br>
-
-- 게시글에 대한 좋아요를 2번 누를 경우, 취소되도록 기능을 구현했습니다.   
-```Java
-    @Transactional
-    public void pushLike(Post post, User user) {
-        checkSameUser(post, user);
-        postLikeRepository.findByPostAndUser(post, user)
-                .ifPresentOrElse(
-                        postLike -> postLikeRepository.deleteById(postLike.getId()),
-                        () -> {
-                            PostLike postLike = PostLike.builder().post(post).user(user).build();
-                            postLikeRepository.save(postLike);
-                        });
-    }
-```
 
 </div>
 </details>
