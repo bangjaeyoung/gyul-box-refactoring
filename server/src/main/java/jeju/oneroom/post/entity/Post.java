@@ -77,7 +77,18 @@ public class Post extends BaseEntity {
     }
 
     // 동일 유저 검증
+
     public boolean isAuthor(User user) {
         return this.user.equals(user);
     }
+
+
+
+    public void increaseViews() {
+        this.views++;
+    }
+
+
+
+
 }

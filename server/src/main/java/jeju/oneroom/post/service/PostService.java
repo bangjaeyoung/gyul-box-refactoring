@@ -53,7 +53,7 @@ public class PostService {
     @Transactional
     public PostDto.Response findPostByPostId(long postId) {
         Post verifiedPost = findVerifiedPost(postId);
-        increaseViews(verifiedPost);
+        verifiedPost.increaseViews();
 
         return postMapper.postToResponseDto(verifiedPost);
     }
@@ -99,10 +99,5 @@ public class PostService {
     public Post findVerifiedPost(long postId) {
         return postRepository.findPostById(postId)
             .orElseThrow(() -> new BusinessLogicException(ExceptionCode.NOT_FOUND_POST));
-    }
-
-    // 조회 수 1 증가 메서드
-    private void increaseViews(Post post) {
-        post.setViews(post.getViews() + 1);
     }
 }
