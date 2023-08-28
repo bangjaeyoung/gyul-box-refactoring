@@ -94,7 +94,7 @@
 
 1. 지역 코드를 파라미터로 외부 Open API를 호출합니다.   
 2. 응답된 데이터는 서비스단으로 이동하여 가공됩니다.   
-    - 주거공간의 타입을 선별   
+    - 주거공간의 타입(다가구주택, 다중주택, 공동주택, 다세대주택, 오피스텔, 단독주택)을 선별   
     - 주거공간의 위도, 경도 데이터를 위해 또 다른 외부 Open API를 호출   
     - HouseInfo 엔티티 필드에 맞는 데이터들을 뽑아내 DB에 저장
   
@@ -184,10 +184,15 @@ public Optional<Post> findPostById(long postId) {
 <summary>상세 설명</summary>
 <div markdown="1">
 
-팀원과의 상의 후에 직접 지역, 주거정보에 대한 데이터를 로컬 MySQL DB에 직접 넣어주었습니다.   
-openapi 디렉토리에 있는 서비스 로직들이 모두 이와 관련된 로직들입니다.   
-이를 AWS RDS의 MySQL DB로 마이그레이션 작업을 한 후, AWS EC2 서버에서 배포했습니다.   
-DB 마이그레이션 작업에 대한 블로깅은 [다음]()과 같습니다.
+</br>
+
+팀원과의 상의 후에 지역, 주거정보에 대한 데이터를 로컬 MySQL DB에 직접 넣어주었습니다.   
+[openapi 디렉토리](https://github.com/bangjaeyoung/gyul-box/tree/main/server/src/main/java/jeju/oneroom/openapi)에 있는 서비스 로직들이 모두 이와 관련된 로직들입니다.   
+
+</br>
+
+이를 AWS RDS의 MySQL DB로 마이그레이션 작업을 거친 후, AWS EC2 서버에서 백엔드 서버를 배포했습니다.   
+MySQL DB 마이그레이션 작업 과정은 다음 [블로깅](https://jaeyoungb.tistory.com/283)을 통해 확인하실 수 있습니다.   
 
 </div>
 </details>
@@ -195,10 +200,38 @@ DB 마이그레이션 작업에 대한 블로깅은 [다음]()과 같습니다.
 </br>
 
 ## 6. 핵심 트러블 슈팅
-단일 게시글 조회 시, 조회수 1 증가하는 로직 / 기존 querydsl에서 조회수 1 증가하는 쿼리문을 직접 작성해서 적용.   
-db에는 적용이 되지만, 응답 데이터로는 +1이 되지 않는 데이터 값 불일치 문제 발생.   
-조회할 때 이미 영속성 컨텍스트에 로드된 엔티티이기 때문에, 응답될 때는 기존 값 그대로 응답해주는 것 같음. [관련 내용]()   
-직접 영속성 컨텍스트에 flush 해주는 로직으로 변경 -> JPA의 변경감지를 이용하는 로직으로 변경 -> 엔티티의 메서드에서 처리하는 비즈니스 로직을 Service Layer에서 처리
+
+### 6.1. 문제 상황
+
+하나의 게시글을 조회하면, 자동으로 조회 수가 1 증가하는 로직을 Querydsl을 활용해서 다음과 같이 JPQL을 작성했었습니다.
+
+```Java
+    @Override
+    public long updateViewCount(Long postId) {
+        return jpaQueryFactory.update(post)
+                .set(post.views, post.views.add(1))
+                .where(post.id.eq(postId))
+                .execute();
+    }
+```
+
+위와 같이 구현한 로직으로는 1이 증가된 조회 수가 DB에 반영이 되었지만, 응답으로는 반영되기 전의 데이터가 응답되는 것을 확인했습니다.   
+
+### 6.2. 문제 원인
+
+하나의 게시글을 조회하는 흐름 순서는 다음과 같습니다.
+1. 먼저 유효한 게시글인지 조회한다.
+2. 이 과정에서 Post 엔티티가 영속성 컨텍스트 내에 로드되고, 1차 캐시에 저장된다.
+3. 위 Querydsl의 JPQL을 통한 벌크 연산이 수행된다.
+4. DB의 조회 수는 1 증가된다.
+5. 벌크 연산은 영속성 컨텍스트를 우회하는 작업이기 때문에, 1차 캐시에 있는 조회 수가 증가되기 전의 Post 엔티티가 반환된다.
+
+[관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/3)
+
+### 6.3. 해결 과정
+1. Querydsl의 벌크 연산 처리
+2. 엔티티 메서드 내에서 처리하도록 변경(JPA 변경감지 이용)
+3. 서비스 로직에서 처리하도록 변경(단일 책임 원칙) [관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/6)
 
 </br>
 
