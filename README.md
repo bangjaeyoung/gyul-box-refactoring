@@ -231,7 +231,23 @@ MySQL DB 마이그레이션 작업 과정은 다음 [블로깅](https://jaeyoung
 ### 6.3. 해결 과정
 1. Querydsl의 벌크 연산 처리
 2. 엔티티 메서드 내에서 처리하도록 변경(JPA 변경감지 이용)
-3. 서비스 로직에서 처리하도록 변경(단일 책임 원칙) [관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/6)
+3. 서비스 레이어에서 처리하도록 변경(단일 책임 원칙) [관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/6) / [관련 내용 블로깅](https://jaeyoungb.tistory.com/292)
+
+```Java
+    // Service Layer 게시글 조회 코드
+    @Transactional
+    public PostDto.Response findPostByPostId(long postId) {
+        Post verifiedPost = findVerifiedPost(postId);
+        verifiedPost.increaseViews();
+
+        return postMapper.postToResponseDto(verifiedPost);
+    }
+
+    // Post 엔티티 내 조회 수 1 증가 메서드
+    public void increaseViews() {
+        this.views++;
+    }
+```
 
 </br>
 
