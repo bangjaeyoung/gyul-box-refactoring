@@ -253,14 +253,83 @@ MySQL DB 마이그레이션 작업 과정은 다음 [블로깅](https://jaeyoung
 
 ## 7. 그 외 트러블 슈팅
 
-- querydsl 이용 시, pagination 사용 불가
-- ddl-auto vs hbm2ddl
-- querydsl를 활용했던 로직에서 Service Layer에서 처리하는 로직으로 변경 후, 필요없는 컬럼까지 업데이트 되는 문제 -> @DynamicUpdate로 해결
+<details>
+<summary>ddl-auto 옵션에서 hbm2ddl 옵션으로 변경</summary>
+<div markdown="1">
+  Area 엔티티를 설계하고 애플리케이션을 실행하고 다음과 같은 에러가 발생했습니다.
+  
+  <img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/4d4a07fc-cced-4096-b29b-0b49a8800253">
+
+  ddl-auto: update 옵션을 hbm2ddl: update로 바꿔 해결했습니다.   
+  Area 도메인은 기본키 생성 전략이 따로 있지 않습니다.   
+  Area 테이블의 기본키는 5011010100과 같은 값으로 직접 넣어줍니다.   
+
+  ```Java
+  @Id
+  @Column(name = "area_id")
+  private Long areaCode;
+  ```
+
+  Area 엔티티에서 기본키 생성 전략인 @GeneratedValue 속성을 사용하지 않았고, 그로 인해 ddl-auto 옵션으로는 스키마 자동 생성이 되지 않는다고 파악했습니다.   
+  [참고 레퍼런스](https://velog.io/@soluinoon/H2-Column-startvalue-not-found-%EC%98%A4%EB%A5%98)
+  
+</div>
+</details>
+
+<details>
+<summary>조회 수 처리 로직에서 필요 없는 컬럼까지 업데이트 되는 문제</summary>
+<div markdown="1">
+  기존 Querydsl로 작성했던 처리 로직에서 update 쿼리문은 다음과 같았습니다.
+  
+  ```SQL
+  update
+      post 
+    set
+      post_id=?,
+      created_at=?,
+      modified_at=?,
+      content=?,
+      title=?,
+      views=?,
+      house_info_id=?,
+      user_id=? 
+    where
+      post_id=?
+  ```
+
+  `@DynamicUpdate` 어노테이션을 Post 엔티티에 붙여주므로써 해결했습니다.   
+
+  ```SQL
+  update
+      post 
+    set
+      modified_at=?,
+      views=?,
+    where
+      post_id=?
+  ```
+
+  [참고한 블로그](https://velog.io/@freddiey/JPA%EC%9D%98-DynamicUpdate)
+
+</div>
+</details>
 
 </br>
 
 ## 8. 아쉬운 점 및 회고
 
-- 조회 수 1 증가시키는 로직으로 인해, JPA Auditing을 받는 modifiedAt 필드도 함께 변경됨 / 게시판 수정일자에 대한 데이터 필드는 따로 만드는 방식으로 수정 필요함.
-- WebSocket을 활용한 실시간 채팅 구현 / 통신 테스트 문제
-- 여러 상황에서 기본 fetch 전략이 다 다른 것을 확인했고 [블로깅]()을 통해 정리
+- modifiedAt 필드   
+조회 수가 증가할 때, JPA Auditing 기능을 통해 트랙킹되는 수정 시간(modifiedAt) 필드도 함께 업데이트됩니다.   
+이 modifiedAt 필드는 유저들에게 게시글에 표현될 데이터들로써, 게시글이 수정되었을 때만 변경되도록 하고 싶었습니다.   
+JPA Auditing으로 받는 시간 필드들은 테이블 관리 용도로 사용하고, 게시글을 수정했을 때만 기록될 시간 필드를 따로 만드는 것이 좋을 것 같습니다.   
+
+- 기본 fetch 전략   
+상황마다 기본 Fetch 전략이 다른 것을 확인했습니다. `@ManyToOne`, `@OneToMany`, `@EntityGraph`, ...   
+또, JPQL의 Fetch Join과 `@EntityGraph`에서의 join 형태 또한 다르다는 것을 알게 되었습니다.   
+해당 [블로깅](https://jaeyoungb.tistory.com/285)을 통해 확실하게 정리해둘 수 있었습니다.   
+
+- WebSocket을 활용한 실시간 채팅 구현   
+WebSocket과 Redis Pub/Sub 기능을 활용한 실시간 채팅을 구현하려 했습니다.   
+프론트와의 통신 테스트에서 예상한 결과를 얻지 못했고, 백엔드 코드를 구현하긴 했지만 온전한 실시간 채팅 기능을 구현하지 못했습니다.   
+결국 기간 내에 온전하게 구현할 수 없겠다고 생각했고, 해당 기능을 포기해야 했습니다.   
+기회가 있다면 WebSocket, Redis Pub/Sub 기술과 전체적인 통신 흐름에 대해 깊이 있게 학습하고 구현하는 것이 좋을 것 같습니다.   
