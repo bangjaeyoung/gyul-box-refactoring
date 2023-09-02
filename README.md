@@ -59,10 +59,10 @@
 
 #### 2) 내용
 
-- 게시물, 댓글, 좋아요에 대한 수정 및 삭제는 동일 유저만 가능하도록 처리했습니다. 📌 [해당 코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L38C5-L50C6)
-- 게시물 조회 시, 조회 수가 1씩 증가되도록 구현했습니다. 📌 [해당 코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L52C5-L59C6)
-- 게시글 좋아요를 2번 누르면 좋아요가 취소되도록 구현했습니다. 📌 [해당 코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java#L20C5-L32C6)
-- 게시물이 삭제되면 해당 게시물의 댓글, 좋아요도 함께 삭제되도록 구현했습니다. 📌 [해당 코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/entity/Post.java#L49C5-L55C58)
+- 게시물, 댓글, 좋아요에 대한 수정 및 삭제는 동일 유저만 가능하도록 처리했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L38C5-L50C6)
+- 게시물 조회 시, 조회 수가 1씩 증가되도록 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/service/PostService.java#L52C5-L59C6)
+- 게시글 좋아요를 2번 누르면 좋아요가 취소되도록 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java#L20C5-L32C6)
+- 게시물이 삭제되면 해당 게시물의 댓글, 좋아요도 함께 삭제되도록 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/entity/Post.java#L49C5-L55C58)
 
 #### 3) 각 도메인 Service Layer 코드
 📌 [게시판](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/post/service/PostService.java)   
@@ -94,9 +94,9 @@
 (외부 Open API의 호출은 모두 WebClient 라이브러리를 이용했습니다.)
 
 #### 3) 코드
-:pushpin: [Open API 컨트롤러 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/controller/OpenApiController.java)   
-:pushpin: [Open API 전체 서비스 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/OpenApiService.java)   
-:pushpin: [위도, 경도 Open API 호출 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/GeoPointService.java)   
+📌 [Open API 컨트롤러 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/controller/OpenApiController.java)   
+📌 [Open API 전체 서비스 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/OpenApiService.java)   
+📌 [위도, 경도 Open API 호출 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/GeoPointService.java)   
 
 </div>
 </details>
@@ -117,7 +117,7 @@ N+1 문제가 발생하는 여러 메서드 중 `findPostById()`의 상황입니
 2. 조회 API의 응답 dto 필드 중 관련 댓글들이 필요하므로 연관된 댓글(PostComment)들 조회   
 3. 댓글의 응답 dto 필드 중 댓글 작성자의 정보가 필요하므로 연관된 작성자(User) 조회   
 
-(응답 dto는 📌 [코드](https://github.com/bangjaeyoung/gyul-box/blob/fcd60ab32b86c605d9d309b8b6ff413ba407a16c/server/src/main/java/jeju/oneroom/post/dto/PostDto.java#L80C5-L96C6)를 참고해주세요.)
+(응답 dto는 [코드](https://github.com/bangjaeyoung/gyul-box/blob/fcd60ab32b86c605d9d309b8b6ff413ba407a16c/server/src/main/java/jeju/oneroom/post/dto/PostDto.java#L80C5-L96C6)를 참고해주세요.)
 
 하나의 게시글을 조회하는 API를 호출하게 되면, PostComment 개수만큼의 User를 조회하는 쿼리문이 호출되는 문제가 발생했습니다. (N+1 문제)
 
@@ -169,10 +169,10 @@ public Optional<Post> findPostById(long postId) {
 </br>
 
 로컬에서 지역(Area), 주거정보(HouseInfo)의 데이터들을 MySQL DB에 직접 넣어주었습니다.   
-📌 [관련 Open API 폴더](https://github.com/bangjaeyoung/gyul-box/tree/main/server/src/main/java/jeju/oneroom/openapi)에 있는 서비스 로직들로 호출하여 저장했습니다.   
+[관련 Open API 폴더](https://github.com/bangjaeyoung/gyul-box/tree/main/server/src/main/java/jeju/oneroom/openapi)에 있는 서비스 로직들로 호출하여 저장했습니다.   
 
 이 로컬 DB를 AWS RDS의 MySQL DB로 마이그레이션 작업을 거친 후, AWS EC2을 이용해 백엔드 서버를 배포했습니다.   
-MySQL DB 마이그레이션 작업 배경 및 과정은 다음 📌 [블로깅](https://jaeyoungb.tistory.com/283)을 통해 확인하실 수 있습니다.   
+MySQL DB 마이그레이션 작업 배경 및 과정은 다음 [블로깅](https://jaeyoungb.tistory.com/283)을 통해 확인하실 수 있습니다.   
 
 </div>
 </details>
@@ -201,13 +201,14 @@ public long updateViewCount(Long postId) {
 하나의 게시글을 조회하는 흐름 순서는 다음과 같습니다.
 1. 해당 게시글이 유효한 게시글인지 조회 / 이 과정에서 조회된 게시글 객체가 영속성 컨텍스트 내에 로드되고, 1차 캐시에 저장됨   
 2. Querydsl의 JPQL 쿼리를 통한 조회 수 증가 로직(벌크 연산)이 수행 / DB의 해당 게시글 조회 수는 1 증가됨
-3. 벌크 연산은 영속성 컨텍스트를 우회하는 작업이기에, 1차 캐시에 저장된 조회 수가 증가되기 전의 Post 엔티티가 반환
-
+3. 벌크 연산은 영속성 컨텍스트를 우회하는 작업이기에, 1차 캐시에 저장된 조회 수가 증가되기 전의 Post 엔티티가 반환   
+   
 📌 [관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/3)
 
 ### 3) 문제 해결
 대용량 처리를 위한 벌크 연산을 통해 조회 수 증가를 구현할 필요는 굳이 없다고 판단했습니다.   
 Post 엔티티 내에 조회 수 필드 증가 메서드를 만들어, Spring Data JPA의 변경 감지 기능을 활용하도록 해결했습니다.   
+
 📌 [관련 내용 블로깅](https://jaeyoungb.tistory.com/292)
 
 ```Java
@@ -319,7 +320,7 @@ public void increaseViews() {
 `@ManyToOne`, `@OneToMany`, `@EntityGraph`, .. 등 상황마다 기본 Fetch 전략이 다른 것을 확인했습니다.   
 또, JPQL의 Fetch Join과 `@EntityGraph`에서의 Join 방식도 다르다는 것이 헷갈리는 부분이었습니다.   
 
-해당 📌 [블로깅](https://jaeyoungb.tistory.com/285) 정리를 통해 확실하게 정리해둘 수 있었습니다.   
+해당 [블로깅](https://jaeyoungb.tistory.com/285) 정리를 통해 확실하게 정리해둘 수 있었습니다.   
   
 </div>
 </details>
