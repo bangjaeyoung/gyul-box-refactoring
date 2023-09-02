@@ -87,7 +87,7 @@
 
 1. 지역 코드를 파라미터로 외부 Open API를 호출합니다.   
 2. 응답된 데이터는 서비스단으로 이동하여 가공됩니다.   
-    - 주거공간의 타입 **(다가구주택, 다중주택, 공동주택, 다세대주택, 오피스텔, 단독주택)** 선별   
+    - 주거공간의 타입(다가구주택, 다중주택, 공동주택, 다세대주택, 오피스텔, 단독주택) 선별   
     - 주거공간의 위도, 경도 데이터를 위해 위도, 경도 관련 Open API 호출   
     - 응답된 데이터들과 HouseInfo 엔티티 필드를 매핑하여 DB에 저장
    
@@ -119,7 +119,7 @@ N+1 문제가 발생하는 여러 메서드 중 `findPostById()`의 상황입니
 
 (응답 dto는 📌 [코드](https://github.com/bangjaeyoung/gyul-box/blob/fcd60ab32b86c605d9d309b8b6ff413ba407a16c/server/src/main/java/jeju/oneroom/post/dto/PostDto.java#L80C5-L96C6)를 참고해주세요.)
 
-하나의 게시글을 조회하는 API를 호출하게 되면, **PostComment 개수만큼의 User를 조회하는 쿼리문이 호출**되는 문제가 발생했습니다. (N+1 문제)
+하나의 게시글을 조회하는 API를 호출하게 되면, PostComment 개수만큼의 User를 조회하는 쿼리문이 호출되는 문제가 발생했습니다. (N+1 문제)
 
 
 [기존 쿼리문 출력 사진]
@@ -127,7 +127,7 @@ N+1 문제가 발생하는 여러 메서드 중 `findPostById()`의 상황입니
 
 #### 2) 문제 해결
 
-Querydsl을 사용하여 작성한 JPQL 쿼리에서 연관 엔티티를 **Fetch Join**으로 결합하는 방식으로 N+1이 발생하는 문제를 해결했습니다.
+Querydsl을 사용하여 작성한 JPQL 쿼리에서 연관 엔티티를 Fetch Join으로 결합하는 방식으로 N+1이 발생하는 문제를 해결했습니다.
 
 ```Java
 @Override
@@ -155,7 +155,7 @@ public Optional<Post> findPostById(long postId) {
 </br>
 </br>
 
-총 쿼리문이 **4+N개** 호출되는 것을 **1개**의 쿼리문으로 줄여, DB로의 요청 부하를 줄일 수 있었습니다.
+총 쿼리문이 4+N개 호출되는 것을 1개의 쿼리문으로 줄여, DB로의 요청 부하를 줄일 수 있었습니다.
 
 </div>
 </details>
@@ -195,12 +195,12 @@ public long updateViewCount(Long postId) {
 }
 ```
 
-이렇게 구현한 로직은 **DB에는 증가된 조회 수가 저장이 되었지만, 응답 데이터는 반영되기 이전의 데이터가 응답되는 문제**가 있었습니다. (데이터 불일치 문제)   
+이렇게 구현한 로직은 DB에는 증가된 조회 수가 저장이 되었지만, 응답 데이터는 반영되기 이전의 데이터가 응답되는 문제가 있었습니다. (데이터 불일치 문제)   
 
 ### 2) 문제 원인
 하나의 게시글을 조회하는 흐름 순서는 다음과 같습니다.
 1. 해당 게시글이 유효한 게시글인지 조회 / 이 과정에서 조회된 게시글 객체가 영속성 컨텍스트 내에 로드되고, 1차 캐시에 저장됨   
-2. Querydsl의 JPQL 쿼리를 통한 조회 수 증가 로직 **(벌크 연산)** 이 수행 / DB의 해당 게시글 조회 수는 1 증가됨
+2. Querydsl의 JPQL 쿼리를 통한 조회 수 증가 로직(벌크 연산)이 수행 / DB의 해당 게시글 조회 수는 1 증가됨
 3. 벌크 연산은 영속성 컨텍스트를 우회하는 작업이기에, 1차 캐시에 저장된 조회 수가 증가되기 전의 Post 엔티티가 반환
 
 📌 [관련 내용 PR](https://github.com/bangjaeyoung/gyul-box/pull/3)
@@ -237,7 +237,7 @@ public void increaseViews() {
   
   <img src="https://github.com/bangjaeyoung/gyul-box/assets/80241053/4d4a07fc-cced-4096-b29b-0b49a8800253">
 
-  **ddl-auto: update** 옵션을 **hbm2ddl.auto: update**로 바꿔 해결했습니다.   
+  ddl-auto: update 옵션을 hbm2ddl.auto: update로 바꿔 해결했습니다.   
   Area 도메인은 기본키 생성 전략이 따로 있지 않고, 5011010100과 같은 값으로 직접 넣어줍니다.   
 
   ```Java
@@ -279,7 +279,7 @@ public void increaseViews() {
 
 </br>
 
-  **`@DynamicUpdate`** 어노테이션을 Post 엔티티에 붙여줌으로써 변경된 컬럼만 업데이트 되도록 개선했습니다.   
+  `@DynamicUpdate` 어노테이션을 Post 엔티티에 붙여줌으로써 변경된 컬럼만 업데이트 되도록 개선했습니다.   
 
   ```SQL
   update
@@ -307,7 +307,7 @@ public void increaseViews() {
 조회 수가 증가될 때, JPA Auditing 기능을 통해 트랙킹되는 테이블 수정 시간(modifiedAt) 필드도 함께 업데이트됩니다.   
 이 modifiedAt 필드는 유저들에게 게시글에 표현될 데이터들로 사용하여 게시글이 수정되었을 때만 변경되도록 하고 싶었습니다.   
 
-앞으로는 **JPA Auditing**으로 받는 시간 필드들은 **테이블 관리 용도**로 사용하고, 게시글을 수정했을 때 기록될 시간 필드는 따로 만드는 것으로 설계할 예정입니다.
+앞으로는 JPA Auditing으로 받는 시간 필드들은 테이블 관리 용도로 사용하고, 게시글을 수정했을 때 기록될 시간 필드는 따로 만드는 것으로 설계할 예정입니다.
   
 </div>
 </details>
