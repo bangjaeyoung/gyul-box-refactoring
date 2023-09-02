@@ -64,7 +64,7 @@
 - 게시글 좋아요를 2번 누르면 좋아요가 취소되도록 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java#L20C5-L32C6)
 - 게시물이 삭제되면 해당 게시물의 댓글, 좋아요도 함께 삭제되도록 구현했습니다. [코드](https://github.com/bangjaeyoung/gyul-box/blob/c6befefb8a51988d3e18a90d1e32dfbba89a22e5/server/src/main/java/jeju/oneroom/post/entity/Post.java#L49C5-L55C58)
 
-#### 3) 각 도메인 Service Layer 코드
+#### 3) 각 도메인 Service 코드
 📌 [게시판](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/post/service/PostService.java)   
 📌 [게시판 댓글](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/postcomment/service/PostCommentService.java)   
 📌 [게시판 좋아요](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/postlike/service/PostLikeService.java)
@@ -94,8 +94,8 @@
 (외부 Open API의 호출은 모두 WebClient 라이브러리를 이용했습니다.)
 
 #### 3) 코드
-📌 [Open API 컨트롤러 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/controller/OpenApiController.java)   
-📌 [Open API 전체 서비스 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/OpenApiService.java)   
+📌 [Open API Controller 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/controller/OpenApiController.java)   
+📌 [Open API 전체 Service 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/OpenApiService.java)   
 📌 [위도, 경도 Open API 호출 코드](https://github.com/bangjaeyoung/gyul-box/blob/main/server/src/main/java/jeju/oneroom/openapi/service/GeoPointService.java)   
 
 </div>
@@ -351,4 +351,3 @@ WebSocket과 Redis Pub/Sub 기능을 활용한 실시간 채팅을 구현하려 
 
 </div>
 </details>
-
