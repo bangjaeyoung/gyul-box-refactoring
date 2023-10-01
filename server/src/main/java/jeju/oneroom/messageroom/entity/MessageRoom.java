@@ -3,6 +3,7 @@ package jeju.oneroom.messageroom.entity;
 import jeju.oneroom.common.entity.BaseEntity;
 import jeju.oneroom.message.entity.Message;
 import jeju.oneroom.user.entity.User;
+import jeju.oneroom.validation.EnumValue;
 import lombok.*;
 
 import javax.persistence.*;
@@ -18,8 +19,13 @@ public class MessageRoom extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageRoomId;
 
+    /**
+     * 채팅방의 상태. 가능한 값은 'CHECK' 또는 'UNCHECK'
+     * 채팅방 최초 생성 시, 채팅방 상태의 기본값이 '읽지 않음'이 되도록 설정
+     */
     @Setter
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "varchar(255) default 'UNCHECK'")
+    @EnumValue(acceptedValues = {"CHECK", "UNCHECK"})
     @Enumerated(EnumType.STRING)
     private MessageRoomStatus messageRoomStatus;
 
@@ -43,11 +49,13 @@ public class MessageRoom extends BaseEntity {
     @OneToMany(mappedBy = "messageRoom", cascade = CascadeType.ALL)
     private Set<Message> messages = new LinkedHashSet<>();
 
+    // 코드 레벨에서, MessageRoom 엔티티 생성 시에 채팅방 상태의 기본값이 '읽지 않음'이 되도록 설정
     @Builder
     public MessageRoom(Long messageRoomId, User sender, User receiver) {
         this.messageRoomId = messageRoomId;
         this.sender = sender;
         this.receiver = receiver;
+        this.messageRoomStatus = MessageRoomStatus.UNCHECK;
     }
 
     public void setProperties(User sender, User receiver) {
