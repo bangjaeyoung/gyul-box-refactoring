@@ -56,7 +56,12 @@ public class OpenApiService {
                     double[] geoPoint = geoPointService.findGeoPoint(location);
                     double latitude = geoPoint[0];
                     double longitude = geoPoint[1];
-                    Coordinate coordinate = new Coordinate(latitude, longitude);
+
+                    Coordinate coordinate = Coordinate.builder()
+                        .latitude(latitude)
+                        .longitude(longitude)
+                        .build();
+
                     houseInfo.setCoordinate(coordinate);
                 } catch (IndexOutOfBoundsException e) {
                     houseInfo.setCoordinate(null);
