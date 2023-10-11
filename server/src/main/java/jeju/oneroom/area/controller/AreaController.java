@@ -16,7 +16,7 @@ public class AreaController {
     private final AreaService areaService;
 
     @GetMapping("/areas/search")
-    public ResponseEntity<AreaDto.Response> getArea(@RequestParam("name") @NotBlank String areaName) {
+    public ResponseEntity<AreaDto.Response> searchAreaByAreaName(@RequestParam("name") @NotBlank String areaName) {
         AreaDto.Response response = areaService.findAreaByAreaName(areaName);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
