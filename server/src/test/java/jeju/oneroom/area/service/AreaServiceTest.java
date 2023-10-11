@@ -2,104 +2,125 @@ package jeju.oneroom.area.service;
 
 import jeju.oneroom.area.dto.AreaDto;
 import jeju.oneroom.area.entity.Area;
-import jeju.oneroom.area.mapper.AreaMapper;
 import jeju.oneroom.area.repository.AreaRepository;
 import jeju.oneroom.common.entity.Coordinate;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
+import jeju.oneroom.exception.BusinessLogicException;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ExtendWith(MockitoExtension.class)
+@SpringBootTest
+@ActiveProfiles("test")
 class AreaServiceTest {
-    @Mock
+
+    @Autowired
     private AreaRepository areaRepository;
 
-    @Mock
-    private AreaMapper areaMapper;
-
-    @InjectMocks
+    @Autowired
     private AreaService areaService;
 
-//    @Test
-//    @DisplayName("findAreasByAreaName 동작 확인")
-//    void 자역_이름으로_검색() {
-//        //given
-//
-//        Area area1 = getArea_1();
-//        Area area2 = getArea_2();
-//        List<Area> areas = Arrays.asList(area1, area2);
-//
-//        AreaDto.Response responseDto = getResponseDto(area1);
-//
-//        //when
-//        when(areaRepository.findByAreaName(anyString())).thenReturn(areas);
-//        when(areaMapper.areaToResponseDto(any())).thenReturn(responseDto);
-//
-//        List<AreaDto.Response> responses = areaService.findAreasByAreaName("동춘");
-//
-//        //then
-//        assertEquals(area1.getAreaCode(), responses.get(0).getAreaCode());
-//    }
+    @AfterEach
+    void tearDown() {
+        areaRepository.deleteAllInBatch();
+    }
 
+    @DisplayName("지역 이름으로 지역을 조회한다.")
     @Test
-    @DisplayName("findVerifiedAreaByAreaCode 동작 확인")
-    void 자역_코드로_검색_성공() {
-        //given
-        Area area = getArea_1();
+    void findAreaByAreaName_Exists() {
+        // given
+        Area area1 = createArea(1L, "가나읍");
+        Area area2 = createArea(2L, "다라읍");
+        Area area3 = createArea(3L, "마바읍");
+        areaRepository.saveAll(List.of(area1, area2, area3));
 
-        //when
-        when(areaRepository.findById(anyLong())).thenReturn(Optional.of(area));
+        // when
+        AreaDto.Response result = areaService.findAreaByAreaName("다라읍");
 
-        Area result= areaService.findVerifiedAreaByAreaCode(11111);
-
-        //then
-        assertEquals(area.getAreaCode(), result.getAreaCode());
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result).extracting("areaCode", "areaName")
+            .contains(2L, "다라읍");
     }
 
+    @DisplayName("지역 이름으로 지역을 조회한다. 존재하지 않을 경우, 예외가 발생한다.")
     @Test
-    @DisplayName("findVerifiedAreaByAreaCode 동작 확인")
-    void 자역_코드로_검색_실패() {
-        //when
-        when(areaRepository.findById(anyLong())).thenReturn(null);
+    void findAreaByAreaName() {
+        // given
+        Area area1 = createArea(1L, "가나읍");
+        Area area2 = createArea(2L, "다라읍");
+        Area area3 = createArea(3L, "마바읍");
+        areaRepository.saveAll(List.of(area1, area2, area3));
 
-        //then
-        assertThrows(RuntimeException.class, () -> areaService.findVerifiedAreaByAreaCode(12345));
+        String notExistedAreaName = "자차읍";
+
+        // when // then
+        assertThatThrownBy(() -> areaService.findAreaByAreaName(notExistedAreaName))
+            .isInstanceOf(BusinessLogicException.class)
+            .extracting("exceptionCode.status", "exceptionCode.message")
+            .contains(404, "Area not found");
     }
 
-    private AreaDto.Response getResponseDto(Area area1) {
-        return AreaDto.Response.builder()
-                .areaCode(area1.getAreaCode())
-                .areaName(area1.getAreaName())
-                .build();
+    @DisplayName("지역 코드로 지역 조회 시, 해당 지역이 존재할 경우 지역을 정상적으로 반환한다.")
+    @Test
+    void findVerifiedAreaByAreaCode_Exists() {
+        // given
+        Area area1 = createArea(1L, "가나읍");
+        Area area2 = createArea(2L, "다라읍");
+        Area area3 = createArea(3L, "마바읍");
+        areaRepository.saveAll(List.of(area1, area2, area3));
+
+        // when
+        Area result = areaService.findVerifiedAreaByAreaCode(2L);
+
+        // then
+        assertThat(result).isNotNull();
+        assertThat(result).extracting("areaCode", "areaName")
+            .contains(2L, "다라읍");
     }
 
-    private Area getArea_1() {
-        Coordinate coordinate = new Coordinate(11.11111, 11.11111);
+    @DisplayName("지역 코드로 지역 조회 시, 해당 지역이 존재하지 않을 경우 에러를 발생시킨다.")
+    @Test
+    void findVerifiedAreaByAreaCodeExists_NotFound() {
+        // given
+        Area area1 = createArea(1L, "가나읍");
+        Area area2 = createArea(2L, "다라읍");
+        Area area3 = createArea(3L, "마바읍");
+        areaRepository.saveAll(List.of(area1, area2, area3));
+
+        long notExistedAreaCode = 4L;
+
+        // when // then
+        assertThatThrownBy(() -> areaService.findVerifiedAreaByAreaCode(notExistedAreaCode))
+            .isInstanceOf(BusinessLogicException.class)
+            .extracting("exceptionCode.status", "exceptionCode.message")
+            .contains(404, "Area not found");
+
+//        BusinessLogicException exception = assertThrows(BusinessLogicException.class,
+//            () -> areaService.findVerifiedAreaByAreaCode(notExistedAreaCode));
+//
+//        assertThat(exception.getExceptionCode().getStatus()).isEqualTo(404);
+//        assertThat(exception.getExceptionCode().getMessage()).isEqualTo("Area not found");
+    }
+
+    private Area createArea(Long areaCode, String areaName) {
         return Area.builder()
-                .areaCode(11111L)
-                .areaName("동춘동")
-                .coordinate(coordinate)
-                .build();
+            .areaCode(areaCode)
+            .areaName(areaName)
+            .coordinate(createCoordinate())
+            .build();
     }
 
-    private Area getArea_2() {
-        Coordinate coordinate = new Coordinate(22.11111, 22.11111);
-        return Area.builder()
-                .areaCode(22222L)
-                .areaName("논현동")
-                .coordinate(coordinate)
-                .build();
+    private Coordinate createCoordinate() {
+        return Coordinate.builder()
+            .latitude(11.1111)
+            .longitude(22.2222)
+            .build();
     }
 }

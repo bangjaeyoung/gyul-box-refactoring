@@ -1,6 +1,6 @@
 package jeju.oneroom.message.config.handler;
 
-import jeju.oneroom.auth.service.JwtTokenizer;
+//import jeju.oneroom.auth.service.JwtTokenizer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.Message;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class WebSocketHandler implements ChannelInterceptor {
 
-    private final JwtTokenizer jwtTokenizer;
+//    private final JwtTokenizer jwtTokenizer;
 
     // websocket 요청 시, 필터 역할
     @Override
@@ -31,7 +31,7 @@ public class WebSocketHandler implements ChannelInterceptor {
                     .orElseThrow(() -> new RuntimeException("ACCESS_DENIED"))
                     .substring("Bearer ".length());
 
-            jwtTokenizer.verifyAccessToken(jwt);
+//            jwtTokenizer.verifyAccessToken(jwt);
         }
 
         return message;

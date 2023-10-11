@@ -1,7 +1,7 @@
 package jeju.oneroom.user.service;
 
 import jeju.oneroom.area.entity.Area;
-import jeju.oneroom.auth.utils.CustomAuthorityUtils;
+//import jeju.oneroom.auth.utils.CustomAuthorityUtils;
 import jeju.oneroom.exception.BusinessLogicException;
 import jeju.oneroom.exception.ExceptionCode;
 import jeju.oneroom.user.dto.UserDto;
@@ -21,14 +21,14 @@ public class UserService {
 
     private final UserMapper userMapper;
     private final UserRepository userRepository;
-    private final CustomAuthorityUtils authorityUtils;
+//    private final CustomAuthorityUtils authorityUtils;
 
     // Oauth2를 통한 로그인 시 첫 로그인 유저만 save
     @Transactional
     public User createUser(User user) {
         if (userRepository.findByEmail(user.getEmail()).isEmpty()) {
-            List<String> roles = authorityUtils.createRoles(user.getEmail());
-            user.setRoles(roles);
+//            List<String> roles = authorityUtils.createRoles(user.getEmail());
+//            user.setRoles(roles);
             return userRepository.save(user);
         } else {
             return null;
