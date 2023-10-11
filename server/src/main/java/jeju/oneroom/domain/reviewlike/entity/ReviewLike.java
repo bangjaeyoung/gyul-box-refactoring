@@ -1,4 +1,4 @@
-package jeju.oneroom.domain.reviewLike.entity;
+package jeju.oneroom.domain.reviewlike.entity;
 
 import jeju.oneroom.domain.review.entity.Review;
 import jeju.oneroom.domain.user.entity.User;

@@ -4,7 +4,7 @@ import jeju.oneroom.domain.post.mapper.PostMapper;
 import jeju.oneroom.domain.post.repository.PostRepository;
 import jeju.oneroom.global.exception.BusinessLogicException;
 import jeju.oneroom.global.exception.ExceptionCode;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.post.dto.PostDto;
 import jeju.oneroom.domain.post.entity.Post;
 import jeju.oneroom.domain.user.entity.User;

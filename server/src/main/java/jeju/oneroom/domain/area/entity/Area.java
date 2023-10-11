@@ -2,7 +2,7 @@ package jeju.oneroom.domain.area.entity;
 
 import jeju.oneroom.global.common.entity.BaseEntity;
 import jeju.oneroom.global.common.entity.Coordinate;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import lombok.*;
 
 import javax.persistence.*;

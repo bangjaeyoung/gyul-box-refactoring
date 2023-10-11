@@ -1,8 +1,8 @@
-package jeju.oneroom.domain.houseInfo.controller;
+package jeju.oneroom.domain.houseinfo.controller;
 
 import jeju.oneroom.domain.area.service.AreaService;
 import jeju.oneroom.global.common.dto.ListResponseDto;
-import jeju.oneroom.domain.houseInfo.service.HouseInfoService;
+import jeju.oneroom.domain.houseinfo.service.HouseInfoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

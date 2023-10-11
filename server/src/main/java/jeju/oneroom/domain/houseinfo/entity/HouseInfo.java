@@ -1,4 +1,4 @@
-package jeju.oneroom.domain.houseInfo.entity;
+package jeju.oneroom.domain.houseinfo.entity;
 
 import jeju.oneroom.domain.area.entity.Area;
 import jeju.oneroom.global.common.entity.BaseEntity;

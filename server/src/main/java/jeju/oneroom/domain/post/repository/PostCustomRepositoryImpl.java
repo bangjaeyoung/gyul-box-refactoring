@@ -1,7 +1,7 @@
 package jeju.oneroom.domain.post.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.post.entity.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-import static jeju.oneroom.domain.houseInfo.entity.QHouseInfo.houseInfo;
+import static jeju.oneroom.domain.houseinfo.entity.QHouseInfo.houseInfo;
 import static jeju.oneroom.domain.post.entity.QPost.post;
 import static jeju.oneroom.domain.postcomment.entity.QPostComment.postComment;
 import static jeju.oneroom.domain.user.entity.QUser.user;

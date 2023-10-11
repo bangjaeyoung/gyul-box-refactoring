@@ -1,7 +1,7 @@
 package jeju.oneroom.domain.review.repository;
 
 import jeju.oneroom.domain.area.entity.Area;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.review.entity.Review;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

@@ -1,8 +1,8 @@
-package jeju.oneroom.domain.reviewLike.controller;
+package jeju.oneroom.domain.reviewlike.controller;
 
 import jeju.oneroom.domain.review.entity.Review;
 import jeju.oneroom.domain.review.service.ReviewService;
-import jeju.oneroom.domain.reviewLike.service.ReviewLikeService;
+import jeju.oneroom.domain.reviewlike.service.ReviewLikeService;
 import jeju.oneroom.domain.user.entity.User;
 import jeju.oneroom.domain.user.service.UserService;
 import lombok.RequiredArgsConstructor;

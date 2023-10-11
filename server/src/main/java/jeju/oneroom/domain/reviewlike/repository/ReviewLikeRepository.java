@@ -1,7 +1,7 @@
-package jeju.oneroom.domain.reviewLike.repository;
+package jeju.oneroom.domain.reviewlike.repository;
 
 import jeju.oneroom.domain.review.entity.Review;
-import jeju.oneroom.domain.reviewLike.entity.ReviewLike;
+import jeju.oneroom.domain.reviewlike.entity.ReviewLike;
 import jeju.oneroom.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

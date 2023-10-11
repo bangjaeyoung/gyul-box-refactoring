@@ -1,4 +1,4 @@
-package jeju.oneroom.domain.houseInfo.dto;
+package jeju.oneroom.domain.houseinfo.dto;
 
 import jeju.oneroom.global.common.entity.Coordinate;
 import jeju.oneroom.global.common.entity.Rate;

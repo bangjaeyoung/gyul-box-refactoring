@@ -3,8 +3,8 @@ package jeju.oneroom.domain.review.repository;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jeju.oneroom.domain.area.entity.Area;
 import jeju.oneroom.domain.area.entity.QArea;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.houseInfo.entity.QHouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.QHouseInfo;
 import jeju.oneroom.domain.review.entity.QReview;
 import jeju.oneroom.domain.review.entity.Review;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-import static jeju.oneroom.domain.houseInfo.entity.QHouseInfo.houseInfo;
+import static jeju.oneroom.domain.houseinfo.entity.QHouseInfo.houseInfo;
 import static jeju.oneroom.domain.review.entity.QReview.review;
 import static jeju.oneroom.domain.user.entity.QUser.user;
 

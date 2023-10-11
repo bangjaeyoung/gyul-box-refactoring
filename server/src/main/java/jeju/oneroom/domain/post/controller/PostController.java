@@ -2,8 +2,8 @@ package jeju.oneroom.domain.post.controller;
 
 import jeju.oneroom.domain.post.service.PostService;
 import jeju.oneroom.global.common.dto.MultiResponseDto;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.houseInfo.service.HouseInfoService;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.service.HouseInfoService;
 import jeju.oneroom.domain.post.dto.PostDto;
 import jeju.oneroom.domain.post.entity.Post;
 import jeju.oneroom.domain.user.entity.User;

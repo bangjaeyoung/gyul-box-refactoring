@@ -1,10 +1,10 @@
-package jeju.oneroom.domain.reviewLike.service;
+package jeju.oneroom.domain.reviewlike.service;
 
 import jeju.oneroom.domain.review.entity.Review;
-import jeju.oneroom.domain.reviewLike.repository.ReviewLikeRepository;
+import jeju.oneroom.domain.reviewlike.repository.ReviewLikeRepository;
 import jeju.oneroom.global.exception.BusinessLogicException;
 import jeju.oneroom.global.exception.ExceptionCode;
-import jeju.oneroom.domain.reviewLike.entity.ReviewLike;
+import jeju.oneroom.domain.reviewlike.entity.ReviewLike;
 import jeju.oneroom.domain.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

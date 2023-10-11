@@ -1,12 +1,12 @@
-package jeju.oneroom.domain.houseInfo.service;
+package jeju.oneroom.domain.houseinfo.service;
 
 import jeju.oneroom.global.common.entity.Rate;
-import jeju.oneroom.domain.houseInfo.mapper.HouseInfoMapper;
+import jeju.oneroom.domain.houseinfo.mapper.HouseInfoMapper;
 import jeju.oneroom.global.exception.BusinessLogicException;
 import jeju.oneroom.global.exception.ExceptionCode;
-import jeju.oneroom.domain.houseInfo.dto.HouseInfoDto;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.houseInfo.repository.HouseInfoRepository;
+import jeju.oneroom.domain.houseinfo.dto.HouseInfoDto;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.repository.HouseInfoRepository;
 import jeju.oneroom.domain.review.dto.ReviewDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

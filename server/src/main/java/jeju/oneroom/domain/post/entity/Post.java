@@ -3,7 +3,7 @@ package jeju.oneroom.domain.post.entity;
 import jeju.oneroom.domain.postcomment.entity.PostComment;
 import jeju.oneroom.domain.postlike.entity.PostLike;
 import jeju.oneroom.global.common.entity.BaseEntity;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.user.entity.User;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;

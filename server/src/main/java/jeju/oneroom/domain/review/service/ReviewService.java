@@ -5,7 +5,7 @@ import jeju.oneroom.domain.review.entity.Review;
 import jeju.oneroom.domain.review.repository.ReviewRepository;
 import jeju.oneroom.global.exception.BusinessLogicException;
 import jeju.oneroom.global.exception.ExceptionCode;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.review.dto.ReviewDto;
 import jeju.oneroom.domain.review.mapper.ReviewMapper;
 import jeju.oneroom.domain.user.entity.User;

@@ -1,6 +1,6 @@
 package jeju.oneroom.domain.post.dto;
 
-import jeju.oneroom.domain.houseInfo.dto.HouseInfoDto;
+import jeju.oneroom.domain.houseinfo.dto.HouseInfoDto;
 import jeju.oneroom.domain.postcomment.dto.PostCommentDto;
 import jeju.oneroom.domain.user.dto.UserDto;
 import lombok.*;

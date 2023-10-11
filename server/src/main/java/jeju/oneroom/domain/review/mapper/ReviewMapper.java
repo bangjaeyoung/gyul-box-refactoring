@@ -1,6 +1,6 @@
 package jeju.oneroom.domain.review.mapper;
 
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.review.dto.ReviewDto;
 import jeju.oneroom.domain.review.entity.Review;
 import jeju.oneroom.domain.user.mapper.UserMapper;

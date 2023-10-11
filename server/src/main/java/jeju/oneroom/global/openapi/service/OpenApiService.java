@@ -1,8 +1,8 @@
 package jeju.oneroom.global.openapi.service;
 
 import jeju.oneroom.global.common.entity.Coordinate;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.houseInfo.repository.HouseInfoRepository;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.repository.HouseInfoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;

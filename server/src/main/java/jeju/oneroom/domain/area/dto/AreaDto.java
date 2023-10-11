@@ -1,7 +1,7 @@
 package jeju.oneroom.domain.area.dto;
 
 import jeju.oneroom.global.common.entity.Coordinate;
-import jeju.oneroom.domain.houseInfo.dto.HouseInfoDto;
+import jeju.oneroom.domain.houseinfo.dto.HouseInfoDto;
 import lombok.*;
 
 import java.util.List;

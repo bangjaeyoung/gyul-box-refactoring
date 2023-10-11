@@ -1,6 +1,6 @@
 package jeju.oneroom.domain.post.mapper;
 
-import jeju.oneroom.domain.houseInfo.mapper.HouseInfoMapper;
+import jeju.oneroom.domain.houseinfo.mapper.HouseInfoMapper;
 import jeju.oneroom.domain.postcomment.mapper.PostCommentMapper;
 import jeju.oneroom.domain.post.dto.PostDto;
 import jeju.oneroom.domain.post.entity.Post;

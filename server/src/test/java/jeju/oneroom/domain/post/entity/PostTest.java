@@ -1,8 +1,7 @@
 package jeju.oneroom.domain.post.entity;
 
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.houseInfo.repository.HouseInfoRepository;
-import jeju.oneroom.domain.post.entity.Post;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.repository.HouseInfoRepository;
 import jeju.oneroom.domain.post.repository.PostRepository;
 import jeju.oneroom.domain.postcomment.entity.PostComment;
 import jeju.oneroom.domain.user.entity.User;

@@ -1,14 +1,14 @@
-package jeju.oneroom.domain.houseInfo.repository;
+package jeju.oneroom.domain.houseinfo.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 import static jeju.oneroom.domain.area.entity.QArea.area;
-import static jeju.oneroom.domain.houseInfo.entity.QHouseInfo.houseInfo;
+import static jeju.oneroom.domain.houseinfo.entity.QHouseInfo.houseInfo;
 
 @Repository
 @RequiredArgsConstructor

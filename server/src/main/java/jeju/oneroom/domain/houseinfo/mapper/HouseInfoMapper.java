@@ -1,7 +1,7 @@
-package jeju.oneroom.domain.houseInfo.mapper;
+package jeju.oneroom.domain.houseinfo.mapper;
 
-import jeju.oneroom.domain.houseInfo.dto.HouseInfoDto;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.dto.HouseInfoDto;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 import jeju.oneroom.domain.review.mapper.ReviewMapper;
 import jeju.oneroom.domain.user.mapper.UserMapper;
 import org.mapstruct.Mapper;

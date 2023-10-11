@@ -2,8 +2,8 @@ package jeju.oneroom.domain.review.entity;
 
 import jeju.oneroom.global.common.entity.BaseEntity;
 import jeju.oneroom.global.common.entity.Rate;
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
-import jeju.oneroom.domain.reviewLike.entity.ReviewLike;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
+import jeju.oneroom.domain.reviewlike.entity.ReviewLike;
 import jeju.oneroom.domain.user.entity.User;
 import lombok.AccessLevel;
 import lombok.Builder;

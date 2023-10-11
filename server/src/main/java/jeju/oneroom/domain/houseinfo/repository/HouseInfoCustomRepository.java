@@ -1,6 +1,6 @@
-package jeju.oneroom.domain.houseInfo.repository;
+package jeju.oneroom.domain.houseinfo.repository;
 
-import jeju.oneroom.domain.houseInfo.entity.HouseInfo;
+import jeju.oneroom.domain.houseinfo.entity.HouseInfo;
 
 import java.util.List;
 
