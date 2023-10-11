@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ActiveProfiles("test")
 @SpringBootTest
+@ActiveProfiles("test")
 class AreaServiceTest {
 
     @Autowired
@@ -81,7 +81,8 @@ class AreaServiceTest {
 
         // then
         assertThat(result).isNotNull();
-        assertThat(result.getAreaCode()).isEqualTo(2L);
+        assertThat(result).extracting("areaCode", "areaName")
+            .contains(2L, "다라읍");
     }
 
     @DisplayName("지역 코드로 지역 조회 시, 해당 지역이 존재하지 않을 경우 에러를 발생시킨다.")
