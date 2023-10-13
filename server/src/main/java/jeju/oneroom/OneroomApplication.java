@@ -10,3 +10,4 @@ public class OneroomApplication {
         SpringApplication.run(OneroomApplication.class, args);
     }
 }
+
